@@ -3,6 +3,7 @@
 #include "main.h"
 #include <stdlib.h>
 #include <stdio.h>
+char *env[] = { "HOME=/usr/home", "LOGNAME=home", (char *)0 };
 
 char *lineparser(char *cmdline)
 {
@@ -23,7 +24,9 @@ char *lineparser(char *cmdline)
  
 void eval(char *argv[])
 {
-	if (execve(argv[0], argv, NULL) == -1)
+	char *command;
+	_strcpy(command, argv[0]);
+	if (execve(command, argv, env) == -1)
 	{
 		perror(NULL);
 	}
